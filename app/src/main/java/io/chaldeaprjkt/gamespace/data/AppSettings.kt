@@ -66,7 +66,7 @@ class AppSettings @Inject constructor(private val context: Context) {
         set(value) = db.edit().putBoolean(KEY_DOUBLE_TAP_TO_SLEEP,value).apply()
 
     var menuOpacity: Int
-        get() = db.getInt(KEY_MENU_OPACITY, 75)
+        get() = db.getInt(KEY_MENU_OPACITY, 100)
         set(value) = db.edit().putInt(KEY_MENU_OPACITY, value).apply()
 
     companion object {
