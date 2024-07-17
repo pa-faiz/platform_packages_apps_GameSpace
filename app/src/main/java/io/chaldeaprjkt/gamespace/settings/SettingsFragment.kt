@@ -28,6 +28,8 @@ import io.chaldeaprjkt.gamespace.R
 import io.chaldeaprjkt.gamespace.data.SystemSettings
 import io.chaldeaprjkt.gamespace.preferences.AppListPreferences
 import io.chaldeaprjkt.gamespace.preferences.appselector.AppSelectorActivity
+import io.chaldeaprjkt.gamespace.preferences.QuickStartAppPreference
+import io.chaldeaprjkt.gamespace.preferences.QuickStartAppPreferenceDialogFragment
 import javax.inject.Inject
 
 @AndroidEntryPoint(PreferenceFragmentCompat::class)
@@ -89,5 +91,15 @@ class SettingsFragment : Hilt_SettingsFragment(), Preference.OnPreferenceChangeL
             }
         }
         return false
+    }
+
+    override fun onDisplayPreferenceDialog(preference: Preference) {
+        if (preference is QuickStartAppPreference) {
+            val dialogFragment = QuickStartAppPreferenceDialogFragment.newInstance(preference.key)
+            dialogFragment.setTargetFragment(this, 0)
+            dialogFragment.show(parentFragmentManager, "QuickStartAppPreferenceDialogFragment")
+        } else {
+            super.onDisplayPreferenceDialog(preference)
+        }
     }
 }
