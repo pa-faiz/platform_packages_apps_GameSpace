@@ -28,9 +28,6 @@ android_app {
         "hilt_android",
         "vendor.lineage.fastcharge-V1.0-java",
     ],
-    libs: [
-        "framework-lmodroid",
-    ],
     kotlincflags: [
         "-opt-in=kotlin.Experimental",
         "-opt-in=kotlin.ExperimentalStdlibApi",

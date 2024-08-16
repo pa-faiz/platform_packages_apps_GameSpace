@@ -32,8 +32,6 @@ import io.chaldeaprjkt.gamespace.data.SystemSettings
 import io.chaldeaprjkt.gamespace.data.UserGame
 import javax.inject.Inject
 
-import com.libremobileos.providers.LMOSettings
-
 class GameModeUtils @Inject constructor(private val context: Context) {
 
     private val defaultModes = listOf(
@@ -58,7 +56,7 @@ class GameModeUtils @Inject constructor(private val context: Context) {
         val configValue = "${packageName};;${modeData?.asConfig()}"
         Settings.Secure.putString(
                 context.contentResolver,
-                LMOSettings.Secure.GAME_OVERLAY,
+                Settings.Secure.GAME_OVERLAY,
                 configValue
         )
     }
