@@ -118,18 +118,6 @@ class SystemSettings @Inject constructor(
             gameModeUtils.setupBatteryMode(games.isNotEmpty())
         }
 
-    var edgeCutout
-        get() = Settings.Secure.getIntForUser(
-            resolver, LMOSettings.Secure.EDGE_CUTOUT, 0,
-            UserHandle.USER_CURRENT
-        ) == 1
-        set(value) {
-            Settings.Secure.putIntForUser(
-                resolver, LMOSettings.Secure.EDGE_CUTOUT,
-                value.toInt(), UserHandle.USER_CURRENT
-            )
-        }
-
     var doubleTapToSleep
         get() = Settings.System.getIntForUser(
                 resolver, LMOSettings.System.DOUBLE_TAP_SLEEP_GESTURE,1,
