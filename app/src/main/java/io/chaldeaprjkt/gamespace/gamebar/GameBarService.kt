@@ -280,6 +280,7 @@ class GameBarService : Hilt_GameBarService() {
         rootPanelView = LayoutInflater.from(this)
             .inflate(R.layout.window_panel, FrameLayout(this), false) as LinearLayout
         panelView = rootPanelView.requireViewById(R.id.panel_view)
+        panelView.alpha = appSettings.menuOpacity / 100f
         rootPanelView.setOnClickListener {
             showPanel = false
         }
