@@ -18,7 +18,6 @@ package io.chaldeaprjkt.gamespace.settings
 import android.content.Intent
 import android.os.Bundle
 import android.provider.Settings
-import android.util.Log
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.preference.Preference
@@ -31,14 +30,10 @@ import io.chaldeaprjkt.gamespace.preferences.AppListPreferences
 import io.chaldeaprjkt.gamespace.preferences.appselector.AppSelectorActivity
 import javax.inject.Inject
 
-import vendor.lineage.fastcharge.V1_0.IFastCharge
-
 @AndroidEntryPoint(PreferenceFragmentCompat::class)
 class SettingsFragment : Hilt_SettingsFragment(), Preference.OnPreferenceChangeListener {
     @Inject
     lateinit var settings: SystemSettings
-
-    private val TAG = "GameSpaceSettingsFragment"
 
     private var apps: AppListPreferences? = null
 
@@ -78,19 +73,6 @@ class SettingsFragment : Hilt_SettingsFragment(), Preference.OnPreferenceChangeL
         findPreference<SwitchPreference>(Settings.System.GAMESPACE_SUPPRESS_FULLSCREEN_INTENT)?.apply {
             isChecked = settings.suppressFullscreenIntent
             onPreferenceChangeListener = this@SettingsFragment
-        }
-
-        findPreference<SwitchPreference>(AppSettings.KEY_FAST_CHARGE_ENABLER)?.apply {
-            try {
-                val fastCharge = IFastCharge.getService()
-                isVisible = fastCharge != null
-                // consider disable if not supported by device.
-                // since we enable it by default, it avoids trying to
-                // set fastcharge state in unsupported devices.
-            } catch (e: Throwable) {
-                Log.e(TAG, "Failed to get IFastCharge service", e)
-                isVisible = false
-            }
         }
     }
 

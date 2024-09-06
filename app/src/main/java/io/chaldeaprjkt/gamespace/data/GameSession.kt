@@ -60,7 +60,6 @@ class GameSession @Inject constructor(
             threeScreenshot = systemSettings.threeScreenshot,
             ringerMode = audioManager.ringerModeInternal,
             doubleTapToSleep = systemSettings.doubleTapToSleep,
-            fastCharge = systemSettings.fastCharge
         )
         if (appSettings.noHeadsUp) {
             systemSettings.headsUp = false
@@ -75,7 +74,6 @@ class GameSession @Inject constructor(
            systemSettings.doubleTapToSleep = false
         }
         audioManager.ringerModeInternal = appSettings.ringerMode
-        systemSettings.fastCharge = appSettings.fastChargeEnabler
     }
 
     fun unregister() {
@@ -93,7 +91,6 @@ class GameSession @Inject constructor(
             orig.doubleTapToSleep?.let{ systemSettings.doubleTapToSleep = it }
         }
         audioManager.ringerModeInternal = orig.ringerMode
-        orig.fastCharge?.let { systemSettings.fastCharge = it }
         state = null
     }
 
