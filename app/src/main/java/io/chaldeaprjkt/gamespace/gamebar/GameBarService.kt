@@ -139,7 +139,9 @@ class GameBarService : Hilt_GameBarService() {
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        super.onStartCommand(intent, flags, startId)
+        if (::rootBarView.isInitialized && rootBarView.isAttachedToWindow) {
+            return START_STICKY
+        }
         when (intent?.action) {
             ACTION_STOP -> onGameLeave()
             ACTION_START -> onGameStart()
@@ -182,11 +184,15 @@ class GameBarService : Hilt_GameBarService() {
 
     fun onGameLeave() {
         shouldClose = true
-        if (::rootPanelView.isInitialized && rootPanelView.isAttachedToWindow) {
-            wm.removeViewImmediate(rootPanelView)
-        }
-        if (::rootBarView.isInitialized && rootBarView.isAttachedToWindow) {
-            wm.removeViewImmediate(rootBarView)
+        try {
+            if (::rootPanelView.isInitialized && rootPanelView.isAttachedToWindow) {
+                wm.removeViewImmediate(rootPanelView)
+            }
+            if (::rootBarView.isInitialized && rootBarView.isAttachedToWindow) {
+                wm.removeViewImmediate(rootBarView)
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
         }
     }
 
